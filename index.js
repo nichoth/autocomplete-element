@@ -85,10 +85,14 @@ function Auto (elem, fn) {
     
     this.input.addEventListener('keydown', function (ev) {
         if (ev.which === 9 || ev.keyCode === 9) {
-            self.input.value = self.ahead.value;
+            self.set(self.ahead.value);
+            self.options = [];
+            css(self.box, { display: 'none' });
+            self.box.innerHTML = '';
             ev.preventDefault();
         }
         else if (ev.which === 38 || ev.keyCode === 38) { // up
+            if (self.box.children.length === 0) return;
             unhover();
             var ix = -1;
             if (prev) ix = self.options.indexOf(prev.textContent);
@@ -98,12 +102,21 @@ function Auto (elem, fn) {
             hover(prev);
         }
         else if (ev.which === 40 || ev.keyCode === 40) { // down
+            if (self.box.children.length === 0) return;
             unhover();
             var ix = -1;
             if (prev) ix = self.options.indexOf(prev.textContent);
             prev = self.box.children[(ix + 1) % self.box.children.length];
             self.set(prev.textContent);
             hover(prev);
+        }
+        else if ((ev.which === 10 || ev.which === 13
+        || ev.keyCode === 10 || ev.keyCode === 13)
+        && window.getComputedStyle(self.box).display === 'block') {
+            self.options = [];
+            self.box.innerHTML = '';
+            css(self.box, { display: 'none' });
+            ev.preventDefault();
         }
     });
     var previnput;
