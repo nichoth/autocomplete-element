@@ -120,7 +120,19 @@ function Auto (elem, fn) {
             css(self.box, { display: 'none' });
             ev.preventDefault();
         }
+        realign();
     });
+    
+    realign();
+    this.input.addEventListener('focus', function () {
+        realign();
+        setTimeout(realign, 0);
+    });
+    this.input.addEventListener('blur', function () {
+        realign();
+        setTimeout(realign, 0);
+    });
+    
     var previnput;
     this.input.addEventListener('keyup', function (ev) {
         if (ev.which === 9 || ev.keyCode === 9
@@ -133,6 +145,11 @@ function Auto (elem, fn) {
             if (fn) fn.call(self, self, ev);
         }
     });
+    
+    function realign () {
+        var istyle = window.getComputedStyle(self.input);
+        self.ahead.style.textAlign = istyle.textAlign;
+    }
 }
 
 Auto.prototype.set = function (txt) {

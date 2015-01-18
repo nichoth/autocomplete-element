@@ -17,7 +17,12 @@
     "url": "git://github.com/substack/autocomplete-element.git"
   },
   "homepage": "https://github.com/substack/autocomplete-element",
-  "keywords": ["browser","typeahead","autocomplete","suggest"],
+  "keywords": [
+    "browser",
+    "typeahead",
+    "autocomplete",
+    "suggest"
+  ],
   "author": {
     "name": "James Halliday",
     "email": "mail@substack.net",
