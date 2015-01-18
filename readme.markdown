@@ -4,7 +4,7 @@ Wire up autocomplete for an `<input type="text">` element.
 
 # example
 
-[Try this example.](https://53ce41460d60233a5f8f6c8d356589c4e0a5aaa9.htmlb.in)
+[Try this example.](https://b282c4661ca4815fef34e7afc8ae23a21e58725e.htmlb.in)
 
 Auto-complete the months.
 

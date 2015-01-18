@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "watch": "watchify browser.js -o bundle.js -dv",
+    "build": "browserify browser.js > bundle.js",
+    "publish": "npm run build && html-inline index.html | htmlbin"
+  }
+}
