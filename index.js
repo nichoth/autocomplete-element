@@ -43,12 +43,29 @@ function Auto (elem) {
         maxHeight: '5em',
         overflowY: 'auto',
         backgroundColor: 'white',
+        color: 'black',
+        borderRadius: '3px',
         paddingLeft: istyle.paddingLeft,
         paddingRight: istyle.paddingRight,
         paddingTop: '3px',
         paddingBottom: '3px'
         
     });
+    var prev;
+    this.box.addEventListener('mousemove', function (ev) {
+        onmouseout();
+        if (ev.target === this) return;
+        ev.target.style.backgroundColor = 'blue';
+        ev.target.style.color = 'white';
+        prev = ev.target;
+    });
+    this.box.addEventListener('mouseout', onmouseout);
+    function onmouseout (ev) {
+        if (prev) {
+            prev.style.backgroundColor = 'inherit';
+            prev.style.color = 'inherit';
+        }
+    }
     div.appendChild(this.box);
     
     this.input.addEventListener('keydown', function (ev) {
