@@ -1,3 +1,5 @@
+var isarray = require('isarray');
+
 module.exports = Auto;
 
 function Auto (elem) {
@@ -30,6 +32,24 @@ function Auto (elem) {
         zIndex: 10
     });
     div.appendChild(this.ahead);
+    var istyle = window.getComputedStyle(this.input);
+    
+    this.box = document.createElement('div');
+    css(this.box, {
+        display: 'none',
+        position: 'absolute',
+        top: this.input.offsetHeight,
+        width: this.input.offsetWidth,
+        maxHeight: '5em',
+        overflowY: 'auto',
+        backgroundColor: 'white',
+        paddingLeft: istyle.paddingLeft,
+        paddingRight: istyle.paddingRight,
+        paddingTop: '3px',
+        paddingBottom: '3px'
+        
+    });
+    div.appendChild(this.box);
     
     this.input.addEventListener('keydown', function (ev) {
         if (ev.which === 9 || ev.keyCode === 9) {
@@ -39,8 +59,21 @@ function Auto (elem) {
     });
 }
 
-Auto.prototype.show = function (str) {
-    this.ahead.value = this.input.value + str.slice(this.input.value.length);
+Auto.prototype.suggest = function (sgs) {
+    if (!sgs) sgs = [ '' ];
+    else if (!isarray(sgs)) sgs = [ sgs ];
+    this.ahead.value = this.input.value
+        + (sgs[0] || '').slice(this.input.value.length)
+    ;
+    if (sgs.length <= 1) return css(this.box, { display: 'none' });;
+    this.box.innerHTML = '';
+    
+    css(this.box, { display: 'block' });
+    for (var i = 0; i < sgs.length; i++) {
+        var div = document.createElement('div');
+        div.textContent = sgs[i];
+        this.box.appendChild(div);
+    }
 };
 
 function css (elem, params) {

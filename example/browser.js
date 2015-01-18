@@ -7,12 +7,10 @@ var months = [
 ];
 var ch = auto(input);
 input.addEventListener('keyup', function () {
-    if (!input.value.length) return ch.show('');
-    for (var i = 0; i < months.length; i++) {
-        var m = months[i];
-        if (lc(m.slice(0, input.value.length)) === lc(input.value)) {
-            return ch.show(m);
-        }
-    }
+    if (!input.value.length) return ch.suggest([]);
+    var matches = months.filter(function (m) {
+        return lc(m.slice(0, input.value.length)) === lc(input.value);
+    });
+    ch.suggest(matches);
 });
 function lc (x) { return x.toLowerCase() }
