@@ -87,8 +87,8 @@ function Auto (elem, fn) {
     
     this.input.addEventListener('keydown', function (ev) {
         if (ev.which === 9 || ev.keyCode === 9) {
-            self.set(self.ahead.value);
-            self.options = [];
+            self.set(self.options[0]);
+            self.options.splice(1);
             css(self.box, { display: 'none' });
             self.box.innerHTML = '';
             ev.preventDefault();
@@ -115,7 +115,7 @@ function Auto (elem, fn) {
         else if ((ev.which === 10 || ev.which === 13
         || ev.keyCode === 10 || ev.keyCode === 13)
         && window.getComputedStyle(self.box).display === 'block') {
-            self.options = [];
+            self.options.splice(1);
             self.box.innerHTML = '';
             css(self.box, { display: 'none' });
             ev.preventDefault();
