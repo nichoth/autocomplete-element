@@ -9,6 +9,10 @@ function Auto (elem, fn) {
     var div = document.createElement('div');
     div.style.display = 'inline-block';
     div.style.position = 'relative';
+    div.style.width = elem.clientWidth;
+    div.style.verticalAlign = 'top';
+    
+    var istyle = window.getComputedStyle(elem);
     if (elem.parentNode) {
         elem.parentNode.insertBefore(div, elem);
         elem.parentNode.removeChild(elem);
@@ -33,13 +37,12 @@ function Auto (elem, fn) {
         zIndex: 10
     });
     div.appendChild(this.ahead);
-    var istyle = window.getComputedStyle(this.input);
     
     this.box = document.createElement('div');
     css(this.box, {
         display: 'none',
         position: 'absolute',
-        top: this.input.offsetHeight,
+        top: this.input.clientTop,
         width: this.input.offsetWidth,
         maxHeight: '5em',
         overflowY: 'auto',
