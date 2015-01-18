@@ -21,6 +21,8 @@ function Auto (elem, fn) {
     
     this.element = div;
     this.input = elem;
+    this.input.setAttribute('autocomplete', 'off');
+    this.input.setAttribute('spellcheck', 'false');
     this.ahead = elem.cloneNode(true);
     this.ahead.setAttribute('placeholder', '');
     this.ahead.setAttribute('disabled', true);
