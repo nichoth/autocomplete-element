@@ -44,8 +44,8 @@ function Auto (elem, fn) {
     css(this.box, {
         display: 'none',
         position: 'absolute',
-        top: this.input.clientTop,
-        width: this.input.offsetWidth,
+        top: istyle.height,
+        width: parseInt(istyle.width) - parseInt(istyle.paddingRight) * 2,
         maxHeight: '5em',
         overflowY: 'auto',
         backgroundColor: 'white',
