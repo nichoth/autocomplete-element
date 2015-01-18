@@ -23,6 +23,8 @@ function Auto (elem, fn) {
     this.input = elem;
     this.ahead = elem.cloneNode(true);
     this.ahead.setAttribute('placeholder', '');
+    this.ahead.setAttribute('disabled', true);
+    this.ahead.style.backgroundColor = istyle.backgroundColor;
     this.options = [];
     
     css(this.ahead, {
