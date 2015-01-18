@@ -1,6 +1,6 @@
 {
   "name": "autocomplete-element",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "autocomplete for <input type=\"text\"> elements",
   "main": "index.js",
   "dependencies": {
