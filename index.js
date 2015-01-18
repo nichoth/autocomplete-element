@@ -125,10 +125,16 @@ function Auto (elem, fn) {
     
     realign();
     this.input.addEventListener('focus', function () {
+        if (self.options.length) {
+            self.ahead.value = self.input.value
+                + (self.options[0] || '').slice(self.input.value.length)
+            ;
+        }
         realign();
         setTimeout(realign, 0);
     });
     this.input.addEventListener('blur', function () {
+        self.ahead.value = '';
         realign();
         setTimeout(realign, 0);
     });
