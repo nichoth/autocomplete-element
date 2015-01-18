@@ -1,0 +1,27 @@
+{
+  "name": "autocomplete-element",
+  "version": "1.0.0",
+  "description": "autocomplete for <input type=\"text\"> elements",
+  "main": "index.js",
+  "dependencies": {
+    "isarray": "~0.0.1"
+  },
+  "devDependencies": {
+    "tape": "^3.0.3"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/autocomplete-element.git"
+  },
+  "homepage": "https://github.com/substack/autocomplete-element",
+  "keywords": ["browser","typeahead","autocomplete","suggest"],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT"
+}
