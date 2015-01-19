@@ -65,7 +65,7 @@ function Auto (elem, fn) {
         if (ev.target === this) return;
         hover(ev.target);
     });
-    this.box.addEventListener('click', function (ev) {
+    this.box.addEventListener('mousedown', function (ev) {
         if (ev.target === this) return;
         self.input.value = ev.target.textContent;
         self.suggest();
@@ -129,12 +129,16 @@ function Auto (elem, fn) {
             self.ahead.value = self.input.value
                 + (self.options[0] || '').slice(self.input.value.length)
             ;
+            if (self.options.length > 1) {
+                css(self.box, { display: 'block' });
+            }
         }
         realign();
         setTimeout(realign, 0);
     });
     this.input.addEventListener('blur', function () {
         self.ahead.value = '';
+        css(self.box, { display: 'none' });
         realign();
         setTimeout(realign, 0);
     });
