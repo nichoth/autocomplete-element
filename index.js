@@ -5,20 +5,20 @@ module.exports = Auto;
 function Auto (elem, fn) {
     if (!(this instanceof Auto)) return new Auto(elem, fn);
     var self = this;
-    
+
     var div = document.createElement('div');
     div.style.display = 'inline-block';
     div.style.position = 'relative';
     div.style.width = elem.clientWidth;
     div.style.verticalAlign = 'top';
-    
+
     var istyle = window.getComputedStyle(elem);
     if (elem.parentNode) {
         elem.parentNode.insertBefore(div, elem);
         elem.parentNode.removeChild(elem);
         div.appendChild(elem);
     }
-    
+
     this.element = div;
     this.input = elem;
     this.input.setAttribute('autocomplete', 'off');
@@ -28,7 +28,7 @@ function Auto (elem, fn) {
     this.ahead.setAttribute('disabled', true);
     this.ahead.style.backgroundColor = istyle.backgroundColor;
     this.options = [];
-    
+
     css(this.ahead, {
         color: '#808080',
         position: 'absolute',
@@ -41,7 +41,8 @@ function Auto (elem, fn) {
         zIndex: 10
     });
     div.appendChild(this.ahead);
-    
+
+    // list of suggestions
     this.box = document.createElement('div');
     css(this.box, {
         display: 'none',
@@ -57,7 +58,7 @@ function Auto (elem, fn) {
         paddingRight: istyle.paddingRight,
         paddingTop: '3px',
         paddingBottom: '3px'
-        
+
     });
     var prev;
     this.box.addEventListener('mousemove', function (ev) {
@@ -71,7 +72,7 @@ function Auto (elem, fn) {
         self.suggest();
     });
     this.box.addEventListener('mouseout', unhover);
-    
+
     function hover (elem) {
         elem.style.backgroundColor = 'blue';
         elem.style.color = 'white';
@@ -84,10 +85,10 @@ function Auto (elem, fn) {
         }
     }
     div.appendChild(this.box);
-    
+
     this.input.addEventListener('keydown', function (ev) {
-        if (ev.which === 9 || ev.keyCode === 9) {
-            self.set(self.options[0]);
+        if (ev.which === 9 || ev.keyCode === 9) { // tab
+            self.set(self.options[0] || '');
             self.options.splice(1);
             css(self.box, { display: 'none' });
             self.box.innerHTML = '';
@@ -112,7 +113,7 @@ function Auto (elem, fn) {
             self.set(prev.textContent);
             hover(prev);
         }
-        else if ((ev.which === 10 || ev.which === 13
+        else if ((ev.which === 10 || ev.which === 13    // enter
         || ev.keyCode === 10 || ev.keyCode === 13)
         && window.getComputedStyle(self.box).display === 'block') {
             self.options.splice(1);
@@ -122,7 +123,7 @@ function Auto (elem, fn) {
         }
         realign();
     });
-    
+
     realign();
     this.input.addEventListener('focus', function () {
         if (self.options.length) {
@@ -142,7 +143,7 @@ function Auto (elem, fn) {
         realign();
         setTimeout(realign, 0);
     });
-    
+
     var previnput;
     this.input.addEventListener('keyup', function (ev) {
         if (ev.which === 9 || ev.keyCode === 9
@@ -155,7 +156,7 @@ function Auto (elem, fn) {
             if (fn) fn.call(self, self, ev);
         }
     });
-    
+
     function realign () {
         var istyle = window.getComputedStyle(self.input);
         self.ahead.style.textAlign = istyle.textAlign;
@@ -171,14 +172,14 @@ Auto.prototype.suggest = function (sgs) {
     if (!sgs) sgs = [ '' ];
     else if (!isarray(sgs)) sgs = [ sgs ].filter(Boolean);
     this.options = sgs;
-    
+
     if (!sgs[0]) this.ahead.value = '';
     else this.ahead.value = this.input.value
         + (sgs[0] || '').slice(this.input.value.length)
     ;
-    if (sgs.length <= 1) return css(this.box, { display: 'none' });;
+    if (sgs.length <= 1) return css(this.box, { display: 'none' });
     this.box.innerHTML = '';
-    
+
     css(this.box, { display: 'block' });
     for (var i = 0; i < sgs.length; i++) {
         var div = document.createElement('div');
