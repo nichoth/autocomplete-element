@@ -42,6 +42,15 @@ function Auto (elem, fn) {
     });
     div.appendChild(this.ahead);
 
+    // make div same size as input
+    css(this.element, {
+        width: parseInt(istyle.width) + parseInt(istyle.paddingRight)*2 +
+            parseInt(istyle.borderTopWidth)*2 +'px',
+        height: parseInt(istyle.height) + parseInt(istyle.paddingTop) +
+            parseInt(istyle.paddingBottom) +
+            parseInt(istyle.borderTopWidth)*2+'px',
+    });
+
     // list of suggestions
     this.box = document.createElement('div');
     css(this.box, {
@@ -146,8 +155,7 @@ function Auto (elem, fn) {
 
     var previnput;
     this.input.addEventListener('keyup', function (ev) {
-        if (ev.which === 9 || ev.keyCode === 9
-        || ev.which === 38 || ev.keyCode === 38
+        if (ev.which === 38 || ev.keyCode === 38
         || ev.which === 40 || ev.keyCode === 40) {
             return;
         }
